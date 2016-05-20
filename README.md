@@ -40,3 +40,8 @@ User has_many Exericses, through Workouts
 /users/exercises/:slug - view exercise details
 /users/exercises/:slug/:edit - edit or delete exercise details
 /users/exercises/:slug/delete
+
+
+user = User.create(name: "Matt")
+exercise = Exercise.create(name: "bench press")
+workout = Workout.create(name: "May 15th")
