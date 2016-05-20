@@ -5,5 +5,7 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 use Rack::MethodOverride
-
+use ExercisesController
+use WorkoutsController
+use UserController
 run ApplicationController

@@ -1,6 +1,7 @@
 require 'sinatra/base'
 
 class ApplicationController < Sinatra::Base
+  use Rack::Flash
 
   configure do
     set :public_folder, "public"
@@ -11,6 +12,22 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     erb :index
+  end
+
+  get '/login' do
+    erb :login
+  end
+
+  post '/login' do
+  
+  end
+
+  get '/signup' do
+    erb :signup
+  end
+
+  post '/signup' do
+    
   end
 
 end
