@@ -15,27 +15,25 @@ class WorkoutsController < ApplicationController
     #new workout
   end
 
-  get '/users/workouts/:slug' do
-
-  end
-
-  get '/users/workouts/:id' do
-    redirect '/users/workouts/:slug' 
+  get '/users/:slug/workouts/:id' do
+    @user = User.find_by_slug(params[:slug])
+    @workout = Workout.find_by(params[:id])
+    erb :'/users/workouts/show'
   end
 
   get '/users/workouts/:id/edit' do
-    redirect '/users/workouts/:slug/edit'
+    erb :edit
   end
 
-  get '/users/workouts/:slug/edit' do
+  get '/users/workouts/:id/edit' do
 
   end
 
-  patch '/users/workouts/:slug' do
+  patch '/users/workouts/:id' do
     #edit workout
   end
 
-  delete '/users/workouts/:slug/delete' do
+  delete '/users/workouts/:id/delete' do
     #delete workout
   end
 
