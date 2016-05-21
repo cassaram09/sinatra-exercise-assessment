@@ -78,13 +78,21 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/users' do
-    erb :'/users/index'
+    if Helpers.is_logged_in?(session)
+      @user = Helpers.current_user(session)
+      redirect "/users/#{@user.slug}"
+    else
+      redirect '/login'
+    end
   end
 
   get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/show'
+    if Helpers.is_logged_in?(session)
+      @user = Helpers.current_user(session)
+      erb :'/users/show'
+    else
+      redirect '/login'
+    end
   end
-
 
 end
