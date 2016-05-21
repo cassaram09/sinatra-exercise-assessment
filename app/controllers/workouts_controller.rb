@@ -3,8 +3,14 @@ class WorkoutsController < ApplicationController
     set :views, "app/views"
   end
 
-  get '/users/workouts' do
-    erb :'/users/workouts/workouts'
+  get '/users/:slug/workouts' do
+    @user = User.find_by_slug(params[:slug])
+    @current = Helpers.current_user(session)
+    if @current.id = @user.id
+      erb :'/users/workouts/index'
+    else
+      redirect "/users/#{@current.slug}"
+    end
   end
 
   get '/users/workouts/new' do
@@ -16,9 +22,15 @@ class WorkoutsController < ApplicationController
   end
 
   get '/users/:slug/workouts/:id' do
+    binding.pry
     @user = User.find_by_slug(params[:slug])
-    @workout = Workout.find_by(params[:id])
-    erb :'/users/workouts/show'
+    @current = Helpers.current_user(session)
+    if @current.id = @user.id
+      @workout = Workout.find_by(id: params[:id])
+      erb :'/users/workouts/show'
+    else
+      redirect "/users/#{@current.slug}"
+    end
   end
 
   get '/users/workouts/:id/edit' do
