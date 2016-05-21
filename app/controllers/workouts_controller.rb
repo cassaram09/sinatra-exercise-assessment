@@ -22,7 +22,6 @@ class WorkoutsController < ApplicationController
   end
 
   get '/users/:slug/workouts/:id' do
-    binding.pry
     @user = User.find_by_slug(params[:slug])
     @current = Helpers.current_user(session)
     if @current.id = @user.id

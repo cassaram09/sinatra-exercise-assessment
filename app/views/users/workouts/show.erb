@@ -3,4 +3,12 @@
 </br>
 <%= @workout.name %>
 
+<ul>
+<% @workout.exercises.each do |exercise| %>
+  <li><%= exercise.name %> - <%= exercise.sets %> sets - <%= exercise.reps %> reps each </li>
+  <% end %>
+</ul>
+
+
 <a href="<%= @workout.id %>/edit"> Edit this workout</a>
+
