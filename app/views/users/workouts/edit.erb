@@ -1,1 +1,33 @@
 <h1>Edit</h1>
+
+<form method="POST" action="/users/:slug/workouts/<%= @workout.id %>">
+  <input type="hidden" name="_method" value="patch">
+  <label for="name">Name</label>
+    <input type="text" name="name" id="name" value="<%= @workout.name %>">
+  <label for="date">Date</label>
+    <input type="text" name="date" id="datepicker" value="<%= @workout.date %>">
+    <br/>
+    <br/>
+  <label>Add Exercises:</label> 
+    
+    <% @workout.exercises.each do |exercise| %>
+    <p>
+      <label>Name:</label> 
+        <input list="exercises" name="exercises[][name]" value="<%= exercise.name %> ">
+        <datalist id="exercises">
+          <% @all_exercises.uniq.each do |exercise| %>
+            <option value="<%= exercise %>">
+          <% end %>
+        </datalist>
+        <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets" value="<%= exercise.sets %>"
+        <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps" value="<%= exercise.reps %>" >
+        <input type="hidden" name="exercises[][id]" id="exercises_id" value="<%= exercise.id %>" >
+        <button type="button" class="remove">Remove</button>
+    </p>
+    <% end %>
+    
+    <p> 
+      <button type="button" class="add">Add Exercise</button>
+    </p>
+    <input type="submit" value="Create" id="create">
+</form>

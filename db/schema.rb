@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20160520181701) do
 
   create_table "workouts", force: :cascade do |t|
     t.string  "name"
-    t.date    "date"
+    t.string  "date"
     t.integer "user_id"
   end
 

@@ -17,9 +17,7 @@ class WorkoutsController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     @current = Helpers.current_user(session)
     if @current.id = @user.id
-      @all_exercises = Exercise.all.map do |exercise|
-        exercise.name 
-      end
+      @all_exercises = Exercise.all.map { |exercise| exercise.name }
       erb :'/users/workouts/new'
     else
       redirect "/users/#{@current.slug}"
@@ -27,11 +25,10 @@ class WorkoutsController < ApplicationController
   end
 
   post '/users/:slug/workouts' do
-    binding.pry
     @user = User.find_by_slug(params[:slug]).first
     @current = Helpers.current_user(session)
     if @current.id == @user.id
-      @workout = Workout.create(name: params[:name])
+      @workout = Workout.create(name: params[:name], date: params[:date])
       @workout.user_id = @user.id
       params[:exercises].each do |exercise| 
         if exercise.has_value?("")
@@ -44,7 +41,6 @@ class WorkoutsController < ApplicationController
       end
       @workout.save
       @user.save
-
       redirect "/users/#{@current.slug}/workouts/#{@workout.id}"
     else
       redirect "/users/#{@current.slug}"
@@ -67,18 +63,31 @@ class WorkoutsController < ApplicationController
     @current = Helpers.current_user(session)
     if @current.id = @user.id
       @workout = Workout.find_by(id: params[:id])
+      @all_exercises = Exercise.all.map { |exercise| exercise.name }
       erb :'/users/workouts/edit'
     else
       redirect "/users/#{@current.slug}"
     end
   end
 
-  get '/users/:slug/workouts/:id/edit' do
-
-  end
-
   patch '/users/:slug/workouts/:id' do
-    #edit workout
+    binding.pry
+    @user = User.find_by_slug(params[:slug]).first
+    @current = Helpers.current_user(session)
+    if @current.id == @user.id
+      @workout = Workout.find_by(id: params[:id])
+      @workout.name = params[:name]
+      @workout.date = params[:date]
+      params[:exercises].each do |exercise|
+          ex = Exercise.find_by_name(exercise[:name])
+           ex.update(exercise)
+        end
+      @workout.save
+      @user.save
+      redirect "/users/#{@current.slug}/workouts/#{@workout.id}"
+    else
+      redirect "/users/#{@current.slug}"
+    end
   end
 
   delete '/users/workouts/:id/delete' do
