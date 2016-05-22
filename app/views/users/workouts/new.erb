@@ -1,0 +1,33 @@
+<h1>Add Workout</h1>
+
+<form method="POST" action="/users/:slug/workouts">
+  <label for="name">Name</label>
+    <input type="text" name="name" id="name">
+  <label for="date">Date</label>
+    <input type="text" name="date" id="datepicker">
+    <br/>
+    <br/>
+  <label for="Exercises">Exercises</label>
+  </br>
+    
+
+    <% @all_exercises.uniq.each do |exercise| %>
+      <input type="checkbox" value="<%= exercise %>" name="exercises[][name]"><%= exercise %></input>
+      Sets <input type="text" name="exercises[][sets]" >
+      Reps <input type="text" name="exercises[][reps]" >
+      <br/>
+    <% end %>
+    <br/>
+   <label for="New Exercise">New Exercise</label>
+    <p>
+      <label>Name:</label> <input type="text" name="new_exercise[][name]" id="new_exercise">
+      <label>Sets:</label> <input type="text" name="new_exercise[][sets]" id="new_exercise">
+      <label>Reps:</label> <input type="text" name="new_exercise[][reps]" id="new_exercise">
+      <button type="button" class="remove">Remove</button>
+    </p>
+    <p> 
+      <button type="button" class="add">Add Exercise</button>
+    </p>
+    <input type="submit" value="Create" id="create">
+</form>
+

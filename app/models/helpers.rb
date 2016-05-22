@@ -5,7 +5,7 @@ class Helpers < ActiveRecord::Base
   end
 
   def self.current_user(session)
-    @user = User.find_by(session[:id])
+    User.find_by(session[:id])
   end
   
 end
