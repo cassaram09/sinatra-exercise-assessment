@@ -42,11 +42,6 @@ class WorkoutsController < ApplicationController
           new_exercise.save
         end
       end
-      params[:new_exercise].each do |exercise| 
-        new_exercise = Exercise.create(exercise)
-        new_exercise.workout_id = @workout.id
-        new_exercise.save
-      end
       @workout.save
       @user.save
 

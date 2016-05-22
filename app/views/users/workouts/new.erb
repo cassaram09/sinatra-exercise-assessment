@@ -7,22 +7,17 @@
     <input type="text" name="date" id="datepicker">
     <br/>
     <br/>
-  <label for="Exercises">Exercises</label>
-  </br>
-    
-
-    <% @all_exercises.uniq.each do |exercise| %>
-      <input type="checkbox" value="<%= exercise %>" name="exercises[][name]"><%= exercise %></input>
-      Sets <input type="text" name="exercises[][sets]" >
-      Reps <input type="text" name="exercises[][reps]" >
-      <br/>
-    <% end %>
-    <br/>
-   <label for="New Exercise">New Exercise</label>
+  <label>Add Exercises:</label> 
     <p>
-      <label>Name:</label> <input type="text" name="new_exercise[][name]" id="new_exercise">
-      <label>Sets:</label> <input type="text" name="new_exercise[][sets]" id="new_exercise">
-      <label>Reps:</label> <input type="text" name="new_exercise[][reps]" id="new_exercise">
+      <label>Name:</label> 
+      <input list="exercises" name="exercises[][name]">
+      <datalist id="exercises">
+        <% @all_exercises.uniq.each do |exercise| %>
+          <option value="<%= exercise %>">
+        <% end %>
+      </datalist>
+      <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets">
+      <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps">
       <button type="button" class="remove">Remove</button>
     </p>
     <p> 
