@@ -10,19 +10,18 @@
     <br/>
   <label>Add Exercises:</label> 
     
-    <% @workout.exercises.each do |exercise| %>
-    <p>
-      <label>Name:</label> 
-        <input list="exercises" name="exercises[][name]" value="<%= exercise.name %> ">
-        <datalist id="exercises">
-          <% @all_exercises.uniq.each do |exercise| %>
-            <option value="<%= exercise %>">
+    <% @workout.exercises.each do |workout_exercise| %>
+      <p>
+        <label>Name:</label> 
+         <select name="exercises[][name]" value="<%= workout_exercise.name %>">
+          <% Exercise.all.each do |exercise| %>
+            <option value="<%= exercise.name %>" <%= exercise.name == workout_exercise.name ? "selected" : nil %>> <%= exercise.name %></option>
           <% end %>
-        </datalist>
-        <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets" value="<%= exercise.sets %>">
-        <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps" value="<%= exercise.reps %>" >
-        <button type="button" class="remove">Remove</button>
-    </p>
+        </select>
+          <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets" value="<%= workout_exercise.sets %>">
+          <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps" value="<%= workout_exercise.reps %>" >
+          <button type="button" class="remove">Remove</button>
+      </p>
     
     <% end %>
     <p> 
