@@ -10,12 +10,11 @@
   <label>Add Exercises:</label> 
     <p>
       <label>Name:</label> 
-      <input list="exercises" name="exercises[][name]">
-      <datalist id="exercises">
-        <% @all_exercises.uniq.each do |exercise| %>
-          <option value="<%= exercise %>">
-        <% end %>
-      </datalist>
+      <select name="exercises[][name]">
+          <% @exercise_names.each do |exercise| %>
+            <option value="<%= exercise %>"> <%= exercise %></option>
+          <% end %>
+        </select>
       <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets">
       <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps">
       <button type="button" class="remove">Remove</button>

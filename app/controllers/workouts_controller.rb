@@ -17,7 +17,7 @@ class WorkoutsController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     @current = Helpers.current_user(session)
     if @current.id = @user.id
-      @all_exercises = Exercise.all.map { |exercise| exercise.name }
+      @exercise_names = Exercise.all.map { |exercise| exercise.name }
       erb :'/users/workouts/new'
     else
       redirect "/users/#{@current.slug}"
