@@ -24,13 +24,16 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  # CREATE NEW WORKOUT
   post '/users/:slug/workouts' do
+    binding.pry
     @user = User.find_by_slug(params[:slug]).first
     @current = Helpers.current_user(session)
     if @current.id == @user.id
       @workout = Workout.create(name: params[:name], date: params[:date])
       @workout.user_id = @user.id
       params[:exercises].each do |exercise| #iterate over the array of exercise hashes
+        exercise[:name].strip #remove trailing spaces
         if exercise.has_value?("")
           next
         else
@@ -76,16 +79,14 @@ class WorkoutsController < ApplicationController
     @current = Helpers.current_user(session)
     if @current.id == @user.id
       @workout = Workout.find_by(id: params[:id])
-      @workout.name = params[:name]
-      @workout.date = params[:date]
+      @workout.update(name:params[:name], date: params[:date])
       @workout.exercises.clear
       params[:exercises].each do |exercise| #iterate over the array of exercise hashes
-        if exercise.has_value?("")
-          next
-        else
-          new_exercise = Exercise.create(exercise)
-          new_exercise.workout_id = @workout.id
-          new_exercise.save
+        Exercise.create(name: exercise[:name], sets: exercise[:sets], reps: exercise[:reps], workout_id: @workout.id)    
+      end
+      Exercise.all.each do |exercise|
+        if !exercise.workout_id
+          exercise.delete
         end
       end
       @workout.save
