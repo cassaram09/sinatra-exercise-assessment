@@ -19,15 +19,15 @@
             <option value="<%= exercise %>">
           <% end %>
         </datalist>
-        <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets" value="<%= exercise.sets %>"
+        <label>Sets:</label> <input type="text" name="exercises[][sets]" id="exercises_sets" value="<%= exercise.sets %>">
         <label>Reps:</label> <input type="text" name="exercises[][reps]" id="exercises_reps" value="<%= exercise.reps %>" >
-        <input type="hidden" name="exercises[][id]" id="exercises_id" value="<%= exercise.id %>" >
         <button type="button" class="remove">Remove</button>
     </p>
-    <% end %>
     
+    <% end %>
     <p> 
       <button type="button" class="add">Add Exercise</button>
     </p>
-    <input type="submit" value="Create" id="create">
+    
+    <input type="submit" value="Update" id="Update">
 </form>

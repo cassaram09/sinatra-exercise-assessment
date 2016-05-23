@@ -30,7 +30,7 @@ class WorkoutsController < ApplicationController
     if @current.id == @user.id
       @workout = Workout.create(name: params[:name], date: params[:date])
       @workout.user_id = @user.id
-      params[:exercises].each do |exercise| 
+      params[:exercises].each do |exercise| #iterate over the array of exercise hashes
         if exercise.has_value?("")
           next
         else
@@ -78,10 +78,16 @@ class WorkoutsController < ApplicationController
       @workout = Workout.find_by(id: params[:id])
       @workout.name = params[:name]
       @workout.date = params[:date]
-      params[:exercises].each do |exercise|
-          ex = Exercise.find_by_name(exercise[:name])
-           ex.update(exercise)
+      @workout.exercises.clear
+      params[:exercises].each do |exercise| #iterate over the array of exercise hashes
+        if exercise.has_value?("")
+          next
+        else
+          new_exercise = Exercise.create(exercise)
+          new_exercise.workout_id = @workout.id
+          new_exercise.save
         end
+      end
       @workout.save
       @user.save
       redirect "/users/#{@current.slug}/workouts/#{@workout.id}"
@@ -95,3 +101,4 @@ class WorkoutsController < ApplicationController
   end
 
 end
+
