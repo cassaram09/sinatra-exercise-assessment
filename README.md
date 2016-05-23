@@ -35,11 +35,6 @@ User has_many Exericses, through Workouts
 /users/workouts/:date /users/workouts/:id - individual workout, accessed by date or ID. Also delete workout
 /users/workouts/:date/:edit - edit or delete workout
 /users/workouts/:slug/delete
-/users/exercises - list all exercises
-/users/exercises/new - add a new personal exercise
-/users/exercises/:slug - view exercise details
-/users/exercises/:slug/:edit - edit or delete exercise details
-/users/exercises/:slug/delete
 
 
 user = User.create(name: "Matt")
